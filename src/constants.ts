@@ -38,6 +38,7 @@ export const meetingRooms = {
         height: '93',
         transform: 'translate(-3695 -4717)',
         fill: '#94a3b8',
+        d: 'M0,0H91V93H0Z',
     },
     Python: {
         id: 'c_1883tlbjrp8asihqilir9go158g0g@resource.calendar.google.com',
@@ -45,6 +46,7 @@ export const meetingRooms = {
         height: '156',
         transform: 'translate(-3129 -4926)',
         fill: '#94a3b8',
+        d: 'M0,0H214V156H0V0Z',
     },
     'Streaming Studio': {
         id: 'c_188eu9dnm3krig5glp9ugtdugg7rq@resource.calendar.google.com',

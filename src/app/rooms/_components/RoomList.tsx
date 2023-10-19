@@ -15,7 +15,7 @@ export const RoomList = ({ rooms }: { rooms: Room[] }) => {
     )
 
     return (
-        <div className="w-full h-full">
+        <div className="w-full h-full px-2">
             <h2 className="text-center">Rooms</h2>
             <Separator className="shadow-md mt-4 mb-4" />
 
@@ -23,7 +23,7 @@ export const RoomList = ({ rooms }: { rooms: Room[] }) => {
                 {rooms?.length ? (
                     rooms.map((r, i) => (
                         <RoomListItem
-                            key={r.id + i}
+                            key={r.id}
                             {...r}
                             onRoomSelect={onRoomSelect}
                         />

@@ -27,7 +27,7 @@ async function fetchEvents(): Promise<{ id: string; title: string; description: 
 }
 
 export default async function Home() {
-    const events = await fetchEvents()
+    const rooms = await fetchEvents()
 
-    return <EventsPage events={events} />
+    return <EventsPage rooms={rooms} />
 }

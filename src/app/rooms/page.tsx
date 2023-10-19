@@ -1,6 +1,6 @@
 import { Room } from '~/app/types'
 import { Tabs } from '~/app/rooms/_components/Tabs'
-import { roomIds } from '~/constants'
+import { meetingRooms, roomIds } from '~/constants'
 
 type Props = {
     rooms: Room[]
@@ -10,10 +10,7 @@ function transform(data: any): Room {
     const now = Date.now()
     // Extract relevant fields from the input data and map them to the Room type
     const room: Room = {
-        id: data.id,
-        title: data.summary,
-        description: data.description, // You can modify this to the appropriate field
-        capacity: 0, // You can set the capacity to an appropriate value
+        ...data,
         isAvailable: !data.items?.some(isRoomAvailable), // You can set availability based on the accessRole or other criteria
     }
 
@@ -40,17 +37,17 @@ async function fetchRooms(): Promise<Room[]> {
     const toDateTime = new Date('2023-10-24T18:40:00').toISOString()
 
     return Promise.all(
-        Object.entries(roomIds)
+        Object.entries(meetingRooms)
             .map(([key, value]) =>
                 fetch(
-                    `https://www.googleapis.com/calendar/v3/calendars/${value}/events?timeMin=${fromDateTime}&timeMax=${toDateTime}`,
+                    `https://www.googleapis.com/calendar/v3/calendars/${value.id}/events?timeMin=${fromDateTime}&timeMax=${toDateTime}`,
                     {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
                             Authorization:
                                 'Bearer ' +
-                                `ya29.a0AfB_byCcfTugF8HW2zQm_bCfZeEkhaV2ZbHNtA5mxhIxcSRjMTpU5QeN0-VaD98KKGovRrolBySI3aSrrm1ZQuZPrhRIJZqQD-CvyhT1CD-DIwyIqHinkXIUXilebntVcIWu9IpFUvq9XnSJFuc-BZJoBhAFb-_21mYmaCgYKAaASARESFQGOcNnCe-rDu5mLFYsx_67tCv0GtA0171`,
+                                `ya29.a0AfB_byBBnB3dr03rivcP3C4kBanfMuFBtOuVoYP_KM3rvxAnPK2UDKgVb3QqlotxWxs7Cu6pfIrdYBZY1gqsu6d8M-DgZC7eUn2jZhkYW-07hi8po1wzewXO9ynGVvsoplj-DfM_ocMmDJdyxevRxUobhkd1c4pCX9dlUwaCgYKASsSARESFQGOcNnCp0e2kqUzeDVYpxDDA_mXLg0173`,
                         },
                     }
                 ).then((res) => res.json())

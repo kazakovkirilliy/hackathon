@@ -18,11 +18,13 @@ export const MapSvg = ({ rooms, onRoomSelect }: Props) => {
     }
 
     useEffect(() => {
-        Object.values(meetingRooms)?.forEach((room) => {
+        Object.entries(meetingRooms)?.forEach(([roomKey, room]) => {
             appendAdditionalStyling({
                 ...room,
-                isAvailable: rooms.find((r) => r.id === room.email)
-                    ?.isAvailable,
+                isAvailable: rooms.find((r) => {
+                    console.log({ r, room, roomKey })
+                    return (r.summary as string).includes(roomKey)
+                })?.isAvailable,
             })
         })
     }, [rooms])

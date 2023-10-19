@@ -22,32 +22,29 @@ function isRoomOccupied(event: any): boolean {
         return true
     }
 
-    const currentTime = new Date('2023-10-20T08:30:00.000Z').toISOString()
-    const eventStartTime = new Date(event.start.dateTime)
-    const eventEndTime = new Date(event.end.dateTime)
+    const currentTime = new Date('2023-10-20T08:30:00+02:00').getTime()
+    const eventStartTime = new Date(event.start.dateTime).getTime()
+    const eventEndTime = new Date(event.end.dateTime).getTime()
 
-    return (
-        currentTime >= eventStartTime.toISOString() &&
-        currentTime <= eventEndTime.toISOString()
-    )
+    return currentTime >= eventStartTime && currentTime <= eventEndTime
 }
 
 async function fetchRooms(): Promise<Room[]> {
-    const fromDateTime = new Date('2023-10-20T09:00:00.000Z').toISOString()
-    const toDateTime = new Date('2023-10-20T10:00:00.000Z').toISOString()
+    const timeMax = new Date('2023-10-20T09:05:00+02:00').toISOString()
+    const timeMin = new Date('2023-10-20T09:00:00+02:00').toISOString()
 
     return Promise.all(
         Object.entries(meetingRooms)
             .map(([key, value]) =>
                 fetch(
-                    `https://www.googleapis.com/calendar/v3/calendars/${value.id}/events?timeMin=${fromDateTime}&timeMax=${toDateTime}&showDeleted=false`,
+                    `https://www.googleapis.com/calendar/v3/calendars/${value.id}/events?timeMin=${timeMin}&timeMax=${timeMax}&showDeleted=false&timeZone=Europe/Prague&showDeleted=false`,
                     {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
                             Authorization:
                                 'Bearer ' +
-                                `ya29.a0AfB_byBi73q-2Om3fx6BO1EJ96ZsxdNnQdZ9TTvOTL2g1LNV4zpfab8yfSePScfod5rqFwKAajo8V_dnC_r15R8pywEDU6g8i8Aq3lup6xZQ1I4700BDBvMvRGiOYQG01wnewW-pFzjdwZIM-7oKUnRPPJldQi3FheEq1gaCgYKARkSARESFQGOcNnCpNN6d9pvT1vPJM2BvUzcFg0173`,
+                                `ya29.a0AfB_byACiR3h_X8uqRnOPhrgd7p_AGFkZwpJCSV6WQmzQZKJz7cON8OuSGyTdLRyHtAFg0XkTLj46CtuCu-eojMsUp_73z7e54-iyWxfHGYcgIgXd710SLvoqdRnWnJyps9Hbp4YzMUgLdzkt3jQ439qG8-YvibCxIZXaCgYKAfMSARESFQGOcNnCsx5SX8SgHFW_Fm8-1acl3w0171`,
                         },
                     }
                 ).then(async (res) => {
@@ -64,8 +61,6 @@ async function fetchRooms(): Promise<Room[]> {
 
 export default async function RoomsPage(props: Props) {
     const rooms = await fetchRooms()
-
-    console.log(rooms)
 
     return (
         <main className="flex flex-1 h-full flex-col items-center">

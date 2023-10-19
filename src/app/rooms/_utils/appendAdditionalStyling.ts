@@ -18,7 +18,7 @@ export const appendAdditionalStyling = (room: Room) => {
     const label = existingLabel || document.createElementNS('http://www.w3.org/2000/svg', 'text')
 
     // Set common attributes for both new and existing labels
-    label.textContent = room.capacity.toString()
+    label.textContent = room.isAvailable ? '✓' : '✕'
     label.setAttribute('id', room.id + ' ' + Math.random().toString())
     label.setAttribute('x', x.toString())
     label.setAttribute('y', y.toString())

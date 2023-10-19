@@ -4,6 +4,9 @@
 
 
 const nextConfig = {
+    images: {
+        domains: ['localhost', 'demo.cloud.gooddata.com'],
+    },
     // ...withPWA({
     //     dest: "public",
     //     register: true,

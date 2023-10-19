@@ -8,8 +8,8 @@ export const RoomList = ({ rooms }: { rooms: Room[] }) => {
     const router = useRouter()
 
     const onRoomSelect = useCallback(
-        (id: string) => {
-            router.push(`/rooms/${id}`)
+        (name: string, id: string) => {
+            router.push(`/rooms/${name}?roomId=${id}`)
         },
         [router]
     )

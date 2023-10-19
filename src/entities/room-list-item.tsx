@@ -4,10 +4,13 @@ import { Room } from '~/app/types'
 import { Button } from '~/components/ui/button'
 import { Users } from 'lucide-react'
 
-type RoomListItemProps = Room & { onRoomSelect: (id: string) => void }
+type RoomListItemProps = Room & {
+    onRoomSelect: (name: string, id: string) => void
+}
 export const RoomListItem = ({
     id,
     title,
+    googleId,
     capacity,
     isAvailable,
     onRoomSelect,
@@ -22,7 +25,7 @@ export const RoomListItem = ({
     return (
         <div
             className="w-full h-12 shadow-md flex items-center rounded-md p-3 justify-between border border-gray-100"
-            onClick={() => onRoomSelect(id)}
+            onClick={() => onRoomSelect(title, googleId)}
         >
             <div className="flex items-center truncate">
                 <div

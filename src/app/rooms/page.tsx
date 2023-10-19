@@ -46,7 +46,7 @@ async function fetchRooms(): Promise<Room[]> {
                             'Content-Type': 'application/json',
                             Authorization:
                                 'Bearer ' +
-                                `ya29.a0AfB_byACiR3h_X8uqRnOPhrgd7p_AGFkZwpJCSV6WQmzQZKJz7cON8OuSGyTdLRyHtAFg0XkTLj46CtuCu-eojMsUp_73z7e54-iyWxfHGYcgIgXd710SLvoqdRnWnJyps9Hbp4YzMUgLdzkt3jQ439qG8-YvibCxIZXaCgYKAfMSARESFQGOcNnCsx5SX8SgHFW_Fm8-1acl3w0171`,
+                                `ya29.a0AfB_byCdc-DcJIIAYwaPHE0VZ-Tw0-dW9NI9xHLIZ7eWTRf-BIXXIgW8fC5Vy60wsk7moy44Mys-Sa3aR9lmC-5iDm0PxdPDO7xdXMspuLGEeXjHy23h3jpkdyXy5NwnXo_09JcslXxTFgtxX8_KgnhN4cbDxYHjQ1JtaCgYKAfESARESFQGOcNnCWacJEcMhZjPTLYUtzu7HiA0171`,
                         },
                     }
                 ).then(async (res) => {
@@ -54,6 +54,7 @@ async function fetchRooms(): Promise<Room[]> {
                     return {
                         ...obj,
                         id: key,
+                        googleId: value.id,
                     }
                 })
             )

@@ -24,16 +24,16 @@ export const RoomListItem = ({
             className="w-full h-12 shadow-md flex items-center rounded-md p-3 justify-between border border-gray-100"
             onClick={() => onRoomSelect(id)}
         >
-            <div className="flex items-center">
+            <div className="flex items-center truncate">
                 <div
-                    className={`rounded-full w-4 h-4 flex mr-2 ${availabilityClass}`}
+                    className={`rounded-full w-4 h-4 flex mr-2 flex-shrink-0 ${availabilityClass}`}
                 ></div>
 
                 <p className="text-gray-900">{title}</p>
             </div>
 
             <div className="flex items-center gap-2">
-                <div className="flex items-center text-gray-300">
+                <div className="flex items-center text-gray-300 pl-1">
                     <p className="text-md pr-1">{capacity}</p>
                     <Users className="w-5 h-5" />
                 </div>

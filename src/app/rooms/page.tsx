@@ -11,6 +11,8 @@ function transform(data: any): Room {
     // Extract relevant fields from the input data and map them to the Room type
     const room: Room = {
         ...data,
+        title: data.id,
+        capacity: meetingRooms[data.id]?.capacity ?? 0,
         isAvailable: !data.items?.some(isRoomOccupied), // You can set availability based on the accessRole or other criteria
     }
 
@@ -64,8 +66,6 @@ async function fetchRooms(): Promise<Room[]> {
 
 export default async function RoomsPage(props: Props) {
     const rooms = await fetchRooms()
-
-    console.log(rooms)
 
     return (
         <main className="flex flex-1 h-full flex-col items-center">

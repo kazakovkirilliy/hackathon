@@ -5,17 +5,19 @@ const getSvgElementCenter = (el: SVGGraphicsElement) => {
     return { x: x + width / 2, y: y + height / 2 }
 }
 
-export const appendAdditionalStyling = (room: Room) => {
+export const appendAdditionalStyling = (room: any) => {
     const pathEl = document.getElementById(room.id) as SVGPathElement | null
     if (!pathEl) return
 
     const container = document.getElementById('Meeting_Rooms')
     const labelId = `${room.id}-label`
-    const existingLabel = document.querySelector(`#${labelId}`)
+    const existingLabel = document.getElementById(labelId)
     const { x, y } = getSvgElementCenter(pathEl)
 
     // Create or reuse the label element
-    const label = existingLabel || document.createElementNS('http://www.w3.org/2000/svg', 'text')
+    const label =
+        existingLabel ||
+        document.createElementNS('http://www.w3.org/2000/svg', 'text')
 
     // Set common attributes for both new and existing labels
     label.textContent = room.isAvailable ? '✓' : '✕'

@@ -5,13 +5,12 @@ import { useRouter } from 'next/navigation'
 import { Room } from '~/app/types'
 
 
-type Props = {
+export type MapProps = {
     rooms: Room[]
 }
 
-export const Map = (props: Props) => {
+export const Map = (props: MapProps) => {
     const router = useRouter()
-    const [selectedRoomId, setSelectedRoomId] = useState<string | undefined>()
 
     const onRoomSelect = (id: string) => {
         router.push(`/rooms/${id}`)

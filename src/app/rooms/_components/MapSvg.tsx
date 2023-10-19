@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Room } from '~/app/types'
-import { PathWrapper } from '~/app/rooms/_components/PathWrapper'
+import { appendAdditionalStyling } from '~/app/rooms/_utils/appendAdditionalStyling'
+import { RoomPath } from '~/app/rooms/_components/RoomPath'
 
 type Props = {
     rooms: Room[]
@@ -12,6 +13,10 @@ export const MapSvg = ({ rooms, onRoomSelect }: Props) => {
         const id = e.currentTarget.id
         onRoomSelect(id)
     }
+
+    useEffect(() => {
+        rooms?.forEach(appendAdditionalStyling)
+    }, [rooms])
 
     return (
         <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'
@@ -66,56 +71,57 @@ export const MapSvg = ({ rooms, onRoomSelect }: Props) => {
                 </g>
                 <g id='Meeting_Rooms' data-name='Meeting Rooms'>
                     <path onClick={onMeetingRoomClick} id='Perl'
-                          d='M-3322.7-4570.122l-103.855,159.634h180.34l-3.3-159.634Z' fill='#16a34a' />
-                    <path onClick={onMeetingRoomClick} id='Emacs' d='M-3392.7-4570.122v159.634h146.485l-3.3-159.634Z'
+                          d='M-3322.7-4570.122l-103.855,159.634h180.34l-3.3-159.634Z' fill='#94a3b8' />
+                    <path onClick={onMeetingRoomClick} id='Emacs'
+                          d='M-3392.7-4570.122v159.634h146.485l-3.3-159.634Z'
                           transform='translate(-233)'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Go' d='M-3392.7-4570.122v159.634h76l-1.714-159.634Z'
                           transform='translate(-309)'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Small_Talk' data-name='Small Talk'
-                          d='M-3743.3-4616.689l-29.741,44.834-32.851,3.271-96.962-62.886,43.9-66.48' fill='#16a34a' />
+                          d='M-3743.3-4616.689l-29.741,44.834-32.851,3.271-96.962-62.886,43.9-66.48'
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Ruby'
-                          d='M-3701.7-4727.956v104.167h-43.394l-112.3-70.118,57.778-95.52Z' fill='#16a34a' />
-                    <rect onClick={onMeetingRoomClick} id='Groovy' width='91' height='93'
-                          transform='translate(-3695 -4717)' fill='#16a34a' />
-                    <rect onClick={onMeetingRoomClick} id='Python' width='214' height='156'
-                          transform='translate(-3129 -4926)' fill='#16a34a' />
+                          d='M-3701.7-4727.956v104.167h-43.394l-112.3-70.118,57.778-95.52Z' fill='#94a3b8' />
+                    <path onClick={onMeetingRoomClick} id='Groovy' width='91' height='93'
+                          transform='translate(-3695 -4717)' fill='#94a3b8' />
+                    <path onClick={onMeetingRoomClick} id='Python' width='214' height='156'
+                          transform='translate(-3129 -4926)' fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Streaming_Studio' data-name='Streaming Studio'
-                          d='M-3292.258-4895.508l-53.279,87.993v36.018h211.6v-124.011Z' fill='#16a34a' />
+                          d='M-3292.258-4895.508l-53.279,87.993v36.018h211.6v-124.011Z' fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Tetris'
                           d='M-3225.649-5103.312l-239.191,387.347h-217.643l-119.5-78.725,413.3-652.061Z'
-                          fill='#16a34a' />
-                    <PathWrapper id={'Tetris'} />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Haskell'
                           d='M-3150.46-5122.618l130.339,81.332-64.231,106.437-125.84-91.1Z'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Scala'
                           d='M-3086.807-5220.916l-60.365,97.255,128.44,81.207,59.582-96.229Z'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Erlang'
                           d='M-2931.865-5472.752l-153.194,250.571,127.467,82.406,158.137-253.1Z'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Clojure'
                           d='M-2745.007-5768.7l-89.439,142.083,126.125,81.7,92.141-145.253Z'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Gym'
                           d='M-2481.381-6185.139l-139.131,218.332,129.539,80.591,21.141-41.5Z'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Tiger-2' data-name='Tiger'
                           d='M-2549.676-6366.173l12.207,5.858,3.169,119.639-65.321-48.031Z'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Basic'
                           d='M-2732.282-6500.44l137.688,89.885-38.41,58.629-138.248-86.978Z'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Cobol'
                           d='M-2536.747-6500.44l-54.555,86.752-141.832-86.752,55.515-88.876Z'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Karel'
                           d='M-2487.883-6582.384l-50.463,79.489-141.551-88.4,55.744-76.545Z'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                     <path onClick={onMeetingRoomClick} id='Bear' d='M-2391.264-6615.391l-72.974,120.221h72.974Z'
-                          fill='#16a34a' />
+                          fill='#94a3b8' />
                 </g>
                 <g id='walls_and_entrances' data-name='walls and entrances'>
                     <g transform='matrix(1, 0, 0, 1, -4052, -7390)' filter='url(#Walls)'>

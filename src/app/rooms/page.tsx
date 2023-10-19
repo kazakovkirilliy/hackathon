@@ -2,7 +2,7 @@ import { Room } from '~/app/types'
 import { Tabs } from '~/app/rooms/_components/Tabs'
 
 type Props = {
-    rooms: Room[];
+    rooms: Room[]
 }
 
 async function fetchRooms(): Promise<Room[]> {
@@ -32,16 +32,15 @@ async function fetchRooms(): Promise<Room[]> {
                     isAvailable: false,
                 },
             ])
-        }, 5000)
+        }, 5)
     })
 }
-
 
 export default async function RoomsPage(props: Props) {
     const rooms = await fetchRooms()
     return (
-        <main className='flex flex-1 h-full flex-col items-center px-2'>
+        <main className="flex flex-1 h-full flex-col items-center px-2">
             <Tabs rooms={rooms} />
         </main>
     )
-};
+}

@@ -13,25 +13,35 @@ import { Toggler } from '~/app/rooms/_components/Toggler'
 const tabs = [Map, RoomList]
 
 type Props = {
-    rooms: Room[];
+    rooms: Room[]
 }
 
 export const Tabs = (props: Props) => {
-    const [tabIndex, setTabIndex] = useState(0)
+    const [tabIndex, setTabIndex] = useState(1)
 
     const Component = useMemo(() => {
         return tabs[tabIndex] as FC<MapProps>
     }, [tabIndex])
 
-    return <>
-        <nav className={'flex w-full justify-between gap-x-4 items-center mb-4'}>
-            <Image width={60} height={60} src={'/icon-192x192.png'} alt={'GoodData'} />
-            <Input placeholder={'Hledat uživatele/místnost'} />
+    return (
+        <>
+            <nav
+                className={
+                    'flex w-full justify-between gap-x-4 items-center mb-4'
+                }
+            >
+                <Image
+                    width={60}
+                    height={60}
+                    src={'/icon-192x192.png'}
+                    alt={'GoodData'}
+                />
+                <Input placeholder={'Hledat uživatele/místnost'} />
 
-            <Toggler tabIndex={tabIndex} setTabIndex={setTabIndex} />
-        </nav>
+                <Toggler tabIndex={tabIndex} setTabIndex={setTabIndex} />
+            </nav>
 
-        <Component {...props} />
-    </>
-
+            <Component {...props} />
+        </>
+    )
 }

@@ -17,6 +17,8 @@ const tabs = [Map, RoomList]
 export const Tabs = (props: Props) => {
     const [tabIndex, setTabIndex] = useState(0)
 
+    console.log('result', props.result)
+
     const Component = useMemo(() => {
         return tabs[tabIndex] as FC<MapProps>
     }, [tabIndex])

@@ -20,7 +20,7 @@ export const MapSvg = ({ rooms, onRoomSelect }: Props) => {
     useEffect(() => {
         Object.entries(rooms)?.forEach(([roomKey, room]) => {
             if (room.isAvailable) {
-                console.log(room)
+                // console.log(room)
             }
             appendAdditionalStyling({
                 ...room,

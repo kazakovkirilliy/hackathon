@@ -7,14 +7,17 @@ import { Users } from 'lucide-react'
 type RoomListItemProps = Room & {
     onRoomSelect: (name: string, id: string) => void
 }
-export const RoomListItem = ({
-    id,
-    title,
-    googleId,
-    capacity,
-    isAvailable,
-    onRoomSelect,
-}: RoomListItemProps) => {
+export const RoomListItem = (props: RoomListItemProps) => {
+    const {
+        id,
+        title,
+        capacity,
+        isAvailable,
+        onRoomSelect,
+        googleId,
+        occupiedBy,
+    } = props
+
     const onBook = (e: MouseEvent) => {
         e.stopPropagation()
         //todo: handle
@@ -37,7 +40,9 @@ export const RoomListItem = ({
 
             <div className="flex items-center gap-2">
                 <div className="flex items-center text-gray-300 pl-1">
-                    <p className="text-md pr-1">{capacity}</p>
+                    <p className="text-md pr-1">
+                        {!isAvailable ? `${occupiedBy}/${capacity}` : capacity}
+                    </p>
                     <Users className="w-5 h-5" />
                 </div>
 

@@ -11,18 +11,18 @@ function transform(data: any): Room {
     // Extract relevant fields from the input data and map them to the Room type
     const room: Room = {
         ...data,
-        isAvailable: !data.items?.some(isRoomAvailable), // You can set availability based on the accessRole or other criteria
+        isAvailable: !data.items?.some(isRoomOccupied), // You can set availability based on the accessRole or other criteria
     }
 
     return room
 }
 
-function isRoomAvailable(event: any): boolean {
+function isRoomOccupied(event: any): boolean {
     if (event.status === 'cancelled') {
         return true
     }
 
-    const currentTime = new Date(Date.now()).toISOString()
+    const currentTime = new Date('2023-10-20T08:30:00.000Z').toISOString()
     const eventStartTime = new Date(event.start.dateTime)
     const eventEndTime = new Date(event.end.dateTime)
 
@@ -33,24 +33,30 @@ function isRoomAvailable(event: any): boolean {
 }
 
 async function fetchRooms(): Promise<Room[]> {
-    const fromDateTime = new Date('2023-10-24T10:30:00').toISOString()
-    const toDateTime = new Date('2023-10-24T18:40:00').toISOString()
+    const fromDateTime = new Date('2023-10-20T09:00:00.000Z').toISOString()
+    const toDateTime = new Date('2023-10-20T10:00:00.000Z').toISOString()
 
     return Promise.all(
         Object.entries(meetingRooms)
             .map(([key, value]) =>
                 fetch(
-                    `https://www.googleapis.com/calendar/v3/calendars/${value.id}/events?timeMin=${fromDateTime}&timeMax=${toDateTime}`,
+                    `https://www.googleapis.com/calendar/v3/calendars/${value.id}/events?timeMin=${fromDateTime}&timeMax=${toDateTime}&showDeleted=false`,
                     {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
                             Authorization:
                                 'Bearer ' +
-                                `ya29.a0AfB_byBBnB3dr03rivcP3C4kBanfMuFBtOuVoYP_KM3rvxAnPK2UDKgVb3QqlotxWxs7Cu6pfIrdYBZY1gqsu6d8M-DgZC7eUn2jZhkYW-07hi8po1wzewXO9ynGVvsoplj-DfM_ocMmDJdyxevRxUobhkd1c4pCX9dlUwaCgYKASsSARESFQGOcNnCp0e2kqUzeDVYpxDDA_mXLg0173`,
+                                `ya29.a0AfB_byBi73q-2Om3fx6BO1EJ96ZsxdNnQdZ9TTvOTL2g1LNV4zpfab8yfSePScfod5rqFwKAajo8V_dnC_r15R8pywEDU6g8i8Aq3lup6xZQ1I4700BDBvMvRGiOYQG01wnewW-pFzjdwZIM-7oKUnRPPJldQi3FheEq1gaCgYKARkSARESFQGOcNnCpNN6d9pvT1vPJM2BvUzcFg0173`,
                         },
                     }
-                ).then((res) => res.json())
+                ).then(async (res) => {
+                    const obj = await res.json()
+                    return {
+                        ...obj,
+                        id: key,
+                    }
+                })
             )
             .map((res) => res.then(transform))
     )
@@ -59,7 +65,7 @@ async function fetchRooms(): Promise<Room[]> {
 export default async function RoomsPage(props: Props) {
     const rooms = await fetchRooms()
 
-    // console.log(rooms)
+    console.log(rooms)
 
     return (
         <main className="flex flex-1 h-full flex-col items-center">

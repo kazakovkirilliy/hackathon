@@ -9,18 +9,18 @@ export const appendAdditionalStyling = (room: any) => {
     const pathEl = document.getElementById(room.id) as SVGPathElement | null
     if (!pathEl) return
 
-    const container = document.getElementById('Meeting_Rooms')
+    // const container = document.getElementById('Meeting_Rooms')
     const labelId = `${room.id}-label`
     const existingLabel = document.getElementById(labelId)
     const { x, y } = getSvgElementCenter(pathEl)
-
-    // Create or reuse the label element
+    //
+    // // Create or reuse the label element
     const label =
         existingLabel ||
         document.createElementNS('http://www.w3.org/2000/svg', 'text')
 
     // Set common attributes for both new and existing labels
-    label.textContent = room.isAvailable ? '✓' : '✕'
+    label.textContent = room.id
     label.setAttribute('id', room.id + ' ' + Math.random().toString())
     label.setAttribute('x', x.toString())
     label.setAttribute('y', y.toString())
@@ -37,7 +37,8 @@ export const appendAdditionalStyling = (room: any) => {
 
     // Set the path element's fill color based on room availability
     pathEl.setAttribute('fill', room.isAvailable ? '#22c55e' : '#dc2626')
+    pathEl.setAttribute('data-id', room.id)
 
     // Append the label to the container
-    container?.appendChild(label)
+    pathEl.parentElement?.appendChild(label)
 }

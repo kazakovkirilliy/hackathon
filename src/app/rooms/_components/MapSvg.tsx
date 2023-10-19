@@ -18,13 +18,12 @@ export const MapSvg = ({ rooms, onRoomSelect }: Props) => {
     }
 
     useEffect(() => {
-        Object.entries(meetingRooms)?.forEach(([roomKey, room]) => {
+        Object.entries(rooms)?.forEach(([roomKey, room]) => {
+            if (room.isAvailable) {
+                console.log(room)
+            }
             appendAdditionalStyling({
                 ...room,
-                isAvailable: rooms.find((r) => {
-                    console.log({ r, room, roomKey })
-                    return (r.summary as string).includes(roomKey)
-                })?.isAvailable,
             })
         })
     }, [rooms])
@@ -170,13 +169,18 @@ export const MapSvg = ({ rooms, onRoomSelect }: Props) => {
                     </g>
                 </g>
                 <g id="Meeting_Rooms" data-name="Meeting Rooms">
-                    {Object.values(meetingRooms).map((room) => (
-                        <path
-                            key={room.id}
-                            {...room}
-                            onClick={onMeetingRoomClick}
-                        />
-                    ))}
+                    {Object.entries(meetingRooms).map(([k, room]) => {
+                        const { id, ...roomP } = room
+
+                        return (
+                            <path
+                                id={k}
+                                key={room.id}
+                                onClick={onMeetingRoomClick}
+                                {...roomP}
+                            />
+                        )
+                    })}
                 </g>
 
                 <g id="walls_and_entrances" data-name="walls and entrances">
